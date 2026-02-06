@@ -102,7 +102,7 @@ async def async_setup_entry(
         @callback
         def async_new_sensors() -> None:
             """Set up IPMI sensors."""
-            create_entity_sensors(ipmiserver, async_add_entities)
+            create_entity_sensors(ipmiserver, unique_id, async_add_entities)
 
         get_ipmi_data(hass)[DISPATCHERS][server_id].append(
             async_dispatcher_connect(
@@ -118,11 +118,11 @@ async def async_setup_entry(
 @callback
 def create_entity_sensors(
     ipmi_data: object,
+    unique_id: str,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     coordinator = ipmi_data[COORDINATOR]
     data = ipmi_data[IPMI_DATA]
-    unique_id = (server_id + "_" + ipmiserver[IPMI_UNIQUE_ID]).lower()
     status = coordinator.data
     entities = []
 
