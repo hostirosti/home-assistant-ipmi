@@ -51,8 +51,7 @@ async def async_setup_entry(
     ipmiserver = get_ipmi_server(hass, config_entry.entry_id)
     coordinator = ipmiserver[COORDINATOR]
     data = ipmiserver[IPMI_DATA]
-    server_id = config_entry.entry_id
-    unique_id = (server_id + "_" + ipmiserver[IPMI_UNIQUE_ID]).lower()
+    unique_id = ipmiserver[IPMI_UNIQUE_ID].lower()
     entities = []
 
     entities.append(
